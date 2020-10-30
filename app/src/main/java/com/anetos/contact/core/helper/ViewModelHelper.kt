@@ -1,4 +1,4 @@
-package com.anetos.contact.core
+package com.anetos.contact.core.helper
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment

@@ -7,7 +7,6 @@ import android.database.Cursor
 import android.os.Build
 import android.os.Bundle
 import android.provider.ContactsContract
-import android.util.Log
 import android.view.View
 import android.view.View.VISIBLE
 import androidx.lifecycle.Observer
@@ -15,7 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.anetos.contact.R
 import com.anetos.contact.core.BaseActivity
-import com.anetos.contact.core.dataViewModelProvider
+import com.anetos.contact.core.helper.dataViewModelProvider
 import com.anetos.contact.data.model.ContactResponse
 import com.anetos.contact.ui.common.DataViewModel
 import com.anetos.contact.ui.listcontact.ContactListAdapter

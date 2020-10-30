@@ -64,26 +64,5 @@ class DataRepository : DataMainRepository() {
         }
     }
 
-    suspend fun saveContactData(context: Context, name: String, number: String) {
-        withContext(Dispatchers.IO) {
-            try {
-                val cr = context.contentResolver
-                val cv = ContentValues()
-                cv.put(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME, name)
-                cv.put(ContactsContract.CommonDataKinds.Phone.NUMBER, number)
-                cv.put(
-                    ContactsContract.CommonDataKinds.Phone.TYPE,
-                    ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE
-                )
-                cr.insert(ContactsContract.RawContacts.CONTENT_URI, cv)
-                Toast.makeText(context, "Contact added", Toast.LENGTH_LONG).show()
-                saveContactData.postValue(true)
-            } catch (e: Exception) {
-                saveContactData.postValue(false)
-                Toast.makeText(context, e.toString(), Toast.LENGTH_LONG).show()
-            }
-        }
-    }
-
     class DataRefreshError(cause: Throwable) : Throwable(cause.message, cause)
 }

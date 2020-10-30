@@ -12,7 +12,7 @@ import com.anetos.contact.R
  *
  * Custom class created for custom [SwipeRefreshLayout] using [SwipeRefreshLayout].
  * @author
- * created by Jaydeep Bhayani on 30/07/2020
+ * created by Jaydeep Bhayani on 30/10/2020
  */
 
 class ScrollChildSwipeRefreshLayout @JvmOverloads constructor(

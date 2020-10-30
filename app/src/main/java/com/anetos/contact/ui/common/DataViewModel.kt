@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.anetos.contact.core.viewModelFactoryWithSingleArg
+import com.anetos.contact.core.helper.viewModelFactoryWithSingleArg
 import com.anetos.contact.data.api.RemoteDataNotFoundException
 import com.anetos.contact.repository.DataRepository
 import kotlinx.coroutines.Job
@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
  *
  * Common [ViewModel] class.
  *  @author
- *  created by Jaydeep Bhayani on 30/07/2020
+ *  created by Jaydeep Bhayani on 30/10/2020
  */
 
 class DataViewModel(private val repository: DataRepository) : ViewModel() {
@@ -35,14 +35,6 @@ class DataViewModel(private val repository: DataRepository) : ViewModel() {
     val contactData = repository.contactData
     fun refreshContactData(context: Context, contactCursor: Cursor) {
         launchDataLoad { repository.getContactListData(context, contactCursor) }
-    }
-
-    /*
-    * Save Contact Data mapping and refresh
-    *  */
-    val saveContactData = repository.saveContactData
-    fun refreshSaveContactData(context: Context, name: String, number: String) {
-        launchDataLoad { repository.saveContactData(context, name, number) }
     }
 
     //--------------------------------------------------------------------------------------------//
