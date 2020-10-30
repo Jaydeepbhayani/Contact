@@ -1,0 +1,8 @@
+<resources>
+  <string name="app_name">Contact</string>
+    <string name="name">Name</string>
+  <string name="phone_no">Phone no.</string>
+    <string name="error_permission">Until you grant the permission, we canot display the names</string>
+    <string name="mobile">Mobile</string>
+  <string name="save">Save</string>
+</resources>
