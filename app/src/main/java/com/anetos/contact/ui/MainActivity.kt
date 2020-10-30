@@ -37,7 +37,7 @@ class MainActivity : BaseActivity() {
         progress.visibility = VISIBLE
         viewModel.contactData.observe(this, Observer { values ->
             progress.visibility = View.GONE
-            if (values != null) {
+            if (values.size > 0) {
                 contactListAdapter.setData(this, values)
             } else {
                 errorLayout.visibility = VISIBLE
@@ -51,6 +51,11 @@ class MainActivity : BaseActivity() {
 
         showContacts()
         setAdapter()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        showContacts()
     }
 
     private fun setAdapter() {

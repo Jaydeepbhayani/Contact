@@ -1,11 +1,9 @@
 package com.anetos.contact.repository
 
-import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.provider.ContactsContract
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import com.anetos.contact.data.model.ContactResponse
 import kotlinx.coroutines.Dispatchers
@@ -39,28 +37,29 @@ class DataRepository : DataMainRepository() {
             val itemArrayList: MutableList<ContactResponse> = mutableListOf()
 
             Log.e("count", "" + contactCursor.count)
+            if (contactCursor.count > 0) {
+                while (contactCursor.moveToNext()) {
+                    val id: String =
+                        contactCursor.getString(contactCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.CONTACT_ID))
+                    val photo: String? =
+                        contactCursor.getString(contactCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.PHOTO_URI))
+                    val name: String = contactCursor.getString(
+                        contactCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)
+                    )
+                    val phoneNumber: String = contactCursor.getString(
+                        contactCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)
+                    )
 
-            while (contactCursor.moveToNext()) {
-                val id: String =
-                    contactCursor.getString(contactCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.CONTACT_ID))
-                val photo: String? =
-                    contactCursor.getString(contactCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.PHOTO_URI))
-                val name: String = contactCursor.getString(
-                    contactCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME)
-                )
-                val phoneNumber: String = contactCursor.getString(
-                    contactCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER)
-                )
+                    val contact = ContactResponse()
+                    contact.name = name
+                    contact.phone = phoneNumber
+                    contact.photo = photo
 
-                val contact = ContactResponse()
-                contact.name = name
-                contact.phone = phoneNumber
-                contact.photo = photo
-
-                itemArrayList.add(contact)
-                contactData.postValue(itemArrayList)
-            }
-            Log.d("ContactFromPhone:", "$itemArrayList")
+                    itemArrayList.add(contact)
+                    contactData.postValue(itemArrayList)
+                }
+                Log.d("ContactFromPhone:", "$itemArrayList")
+            } else contactData.postValue(emptyList())
         }
     }
 
