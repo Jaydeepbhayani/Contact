@@ -13,6 +13,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class ContactResponse(
+    var id: String? = null,
     var name: String? = null,
     var phone: String? = null,
     var photo: String? = null,

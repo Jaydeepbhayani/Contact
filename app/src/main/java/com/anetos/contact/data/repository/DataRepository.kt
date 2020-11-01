@@ -36,11 +36,11 @@ class DataRepository : DataMainRepository() {
         withContext(Dispatchers.IO) {
             val itemArrayList: MutableList<ContactResponse> = mutableListOf()
 
-            Log.e("count", "" + contactCursor.count)
+            //Log.e("count", "" + contactCursor.count)
             if (contactCursor.count > 0) {
                 while (contactCursor.moveToNext()) {
                     val id: String =
-                        contactCursor.getString(contactCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.CONTACT_ID))
+                        contactCursor.getString(contactCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.RAW_CONTACT_ID))
                     val photo: String? =
                         contactCursor.getString(contactCursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.PHOTO_URI))
                     val name: String = contactCursor.getString(
@@ -51,6 +51,7 @@ class DataRepository : DataMainRepository() {
                     )
 
                     val contact = ContactResponse()
+                    contact.id = id
                     contact.name = name
                     contact.phone = phoneNumber
                     contact.photo = photo

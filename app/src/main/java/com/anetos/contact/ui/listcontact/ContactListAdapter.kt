@@ -71,7 +71,7 @@ class ContactListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>()/*(REP
 
         holder.container.setOnClickListener {
             //onItemClick?.onItemClick(position, data)
-            onItemClick?.onItemClick(position, itemArrayList)
+            onItemClick?.onItemClick(position, data)
         }
 
         setAnimation(holder.itemView, position)
@@ -119,7 +119,7 @@ class ContactListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>()/*(REP
 
     interface onItemclickListener {
         //fun onItemClick(position: Int, data: Articles)
-        fun onItemClick(position: Int, itemArrayList: List<ContactResponse>)
+        fun onItemClick(position: Int, item: ContactResponse)
     }
 
     fun setonItemClickListener(onItemclickListener: onItemclickListener) {

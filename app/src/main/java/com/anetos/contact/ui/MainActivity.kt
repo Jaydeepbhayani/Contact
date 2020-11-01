@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.database.Cursor
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.ContactsContract
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.anetos.contact.R
 import com.anetos.contact.core.BaseActivity
+import com.anetos.contact.core.helper.PermissionHelper
 import com.anetos.contact.core.helper.dataViewModelProvider
 import com.anetos.contact.data.model.ContactResponse
 import com.anetos.contact.ui.common.DataViewModel
@@ -49,7 +51,6 @@ class MainActivity : BaseActivity() {
             saveContact()
         }
 
-        showContacts()
         setAdapter()
     }
 
@@ -82,7 +83,7 @@ class MainActivity : BaseActivity() {
 
         contactListAdapter.setonItemClickListener(object :
             ContactListAdapter.onItemclickListener {
-            override fun onItemClick(position: Int, itemArrayList: List<ContactResponse>) {
+            override fun onItemClick(position: Int, item: ContactResponse) {
                 /*val intent = Intent(
                     this@MainActivity,
                     NewsDetailActivity::class.java
@@ -90,6 +91,7 @@ class MainActivity : BaseActivity() {
                 intent.putExtra("position", position)
                 intent.putParcelableArrayListExtra("news_detail", itemArrayList as ArrayList)
                 startActivity(intent)*/
+                editUpdateContact(item)
             }
         })
     }
@@ -105,6 +107,57 @@ class MainActivity : BaseActivity() {
             type = ContactsContract.RawContacts.CONTENT_TYPE
         }
         startActivity(intent)
+    }
+
+    fun editUpdateContact(contactResponse: ContactResponse) {
+        /* val intent = Intent(Intent.ACTION_EDIT, ContactsContract.Contacts.CONTENT_URI).apply {
+             type = ContactsContract.RawContacts.CONTENT_TYPE
+         }
+         startActivity(intent)*/
+        /*val intent = Intent(Intent.ACTION_INSERT_OR_EDIT)
+        intent.type = ContactsContract.Contacts.CONTENT_ITEM_TYPE
+        startActivity(intent)*/
+
+        // The Cursor that contains the Contact row
+        var mCursor: Cursor? = null
+        // The index of the lookup key column in the cursor
+        var lookupKeyIndex: Int = 0
+        // The index of the contact's _ID value
+        var idIndex: Int = 0
+        // The lookup key from the Cursor
+        var currentLookupKey: String? = null
+        // The _ID value from the Cursor
+        var currentId: Long = 0
+        // A content URI pointing to the contact
+        var selectedContactUri: Uri? = null
+        /*
+         * Once the user has selected a contact to edit,
+         * this gets the contact's lookup key and _ID values from the
+         * cursor and creates the necessary URI.
+         */
+        mCursor?.apply {
+            // Gets the lookup key column index
+            lookupKeyIndex = getColumnIndex(ContactsContract.Contacts.LOOKUP_KEY)
+            // Gets the lookup key value
+            currentLookupKey = getString(lookupKeyIndex)
+            // Gets the _ID column index
+            idIndex = getColumnIndex(contactResponse.id)
+            currentId = getLong(idIndex)
+            //selectedContactUri = ContactsContract.Contacts.getLookupUri(currentId, mCurrentLookupKey)
+        }
+
+        // Creates a new Intent to edit a contact
+        val editIntent = Intent(Intent.ACTION_EDIT).apply {
+            /*
+             * Sets the contact URI to edit, and the data type that the
+             * Intent must match
+             */
+            setDataAndType(selectedContactUri, ContactsContract.Contacts.CONTENT_ITEM_TYPE)
+        }
+        // Sets the special extended data for navigation
+        editIntent.putExtra("finishActivityOnSaveCompleted", true)
+        // Sends the Intent
+        startActivity(editIntent)
     }
 
     private fun showContacts() {
