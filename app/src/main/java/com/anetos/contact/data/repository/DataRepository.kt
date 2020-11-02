@@ -59,7 +59,7 @@ class DataRepository : DataMainRepository() {
                     itemArrayList.add(contact)
                     contactData.postValue(itemArrayList)
                 }
-                Log.d("ContactFromPhone:", "$itemArrayList")
+                //Log.d("ContactFromPhone:", "$itemArrayList")
             } else contactData.postValue(emptyList())
         }
     }

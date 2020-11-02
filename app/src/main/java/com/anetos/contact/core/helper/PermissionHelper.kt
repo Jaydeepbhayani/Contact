@@ -28,6 +28,8 @@ object PermissionHelper {
         )
     }
 
+
+
     fun requestReadContactPermission(  activity: Activity,
                                    fragment: Fragment?,
                                    requestCode: Int,

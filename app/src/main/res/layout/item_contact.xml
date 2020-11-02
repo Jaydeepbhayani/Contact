@@ -8,17 +8,17 @@
     android:padding="4dp">
 
     <ImageView
-        android:id="@+id/iv_photo"
+        android:id="@+id/ivPhoto"
         android:layout_width="@dimen/dp50"
         android:layout_height="@dimen/dp50"
         android:layout_margin="@dimen/dp8"
         app:srcCompat="@drawable/ic_baseline_account_circle_24"
-        app:layout_constraintBottom_toBottomOf="@id/tv_phone"
+        app:layout_constraintBottom_toBottomOf="@id/tvPhone"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/tv_name" />
+        app:layout_constraintTop_toTopOf="@id/tvName" />
 
     <TextView
-        android:id="@+id/tv_name"
+        android:id="@+id/tvName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dp12"
@@ -27,11 +27,11 @@
         android:text="@string/name"
         android:textColor="#4C4C4C"
         android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@id/iv_photo"
+        app:layout_constraintStart_toEndOf="@id/ivPhoto"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_phone"
+        android:id="@+id/tvPhone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
@@ -39,7 +39,17 @@
         android:text="@string/phone_no"
         android:textColor="#cecece"
         android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@id/tv_name"
-        app:layout_constraintTop_toBottomOf="@id/tv_name" />
+        app:layout_constraintStart_toStartOf="@id/tvName"
+        app:layout_constraintTop_toBottomOf="@id/tvName" />
+
+    <ImageView
+        android:id="@+id/ivCall"
+        android:layout_width="@dimen/dp24"
+        android:layout_height="@dimen/dp24"
+        android:layout_margin="@dimen/dp8"
+        app:srcCompat="@drawable/ic_baseline_call_24"
+        app:layout_constraintBottom_toBottomOf="@id/tvPhone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvName" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

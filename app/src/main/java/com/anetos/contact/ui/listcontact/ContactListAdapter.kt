@@ -1,6 +1,8 @@
 package com.anetos.contact.ui.listcontact
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +19,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
+
 
 /**
  * * [ContactListAdapter]
@@ -59,15 +62,25 @@ class ContactListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>()/*(REP
         Glide.with(context)
             .load(data.photo)
             .apply(RequestOptions.circleCropTransform())
-            .apply(RequestOptions.bitmapTransform(CircleCrop()).error(R.drawable.ic_baseline_account_circle_24))
+            .apply(
+                RequestOptions.bitmapTransform(CircleCrop())
+                    .error(R.drawable.ic_baseline_account_circle_24)
+            )
             .transition(
                 DrawableTransitionOptions()
-                .crossFade())
+                    .crossFade()
+            )
             //.circleCrop()
             .placeholder(R.drawable.ic_baseline_account_circle_24)
             //.error(R.drawable.ic_baseline_account_circle_24)
             .apply(RequestOptions.circleCropTransform())
             .into(holder.ivPhoto)
+
+        holder.ivCall.setOnClickListener {
+            val intent = Intent(Intent.ACTION_DIAL)
+            intent.data = Uri.parse("tel:" + data.phone)
+            context.startActivity(intent)
+        }
 
         holder.container.setOnClickListener {
             //onItemClick?.onItemClick(position, data)
@@ -86,14 +99,16 @@ class ContactListAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>()/*(REP
 
         val container: ConstraintLayout
         val ivPhoto: ImageView
+        val ivCall: ImageView
         var tvName: TextView
         var tvPhone: TextView
 
         init {
             container = itemView.findViewById(R.id.container)
-            ivPhoto = itemView.findViewById(R.id.iv_photo)
-            tvName = itemView.findViewById(R.id.tv_name)
-            tvPhone = itemView.findViewById(R.id.tv_phone)
+            ivPhoto = itemView.findViewById(R.id.ivPhoto)
+            tvName = itemView.findViewById(R.id.tvName)
+            tvPhone = itemView.findViewById(R.id.tvPhone)
+            ivCall = itemView.findViewById(R.id.ivCall)
         }
     }
 

@@ -96,7 +96,6 @@ class MainActivity : BaseActivity() {
         })
     }
 
-
     override fun onStop() {
         contactCursor.close()
         super.onStop()
